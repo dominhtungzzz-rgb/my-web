@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Góc Phim & Bộ Sưu Tập 219 Ảnh</title>
+    
+    <style>
+        body {
+            background-color: #0f172a;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #38bdf8;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .card h2 {
+            color: #f8fafc;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        /* --- BỘ SƯU TẬP 219 ẢNH --- */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .gallery::-webkit-scrollbar {
+            width: 8px;
+        }
+        .gallery::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        .gallery img {
+            width: calc(33.333% - 10px);
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- KHUNG PHÓNG TO ẢNH (MODAL) NÂNG CẤP --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+        }
+
+        .modal-content-wrapper {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* PHÍM MŨI TÊN ĐIỀU HƯỚNG */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+            z-index: 1001;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #prev-btn {
+            left: 20px;
+        }
+
+        #next-btn {
+            right: 20px;
+        }
+
+        .photo-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* --- KHUNG VIDEO NHÚNG YOUTUBE --- */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            border: none;
+        }
+
+        /* --- NÚT TẢI TÀI LIỆU --- */
+        .btn-download {
+            display: inline-block;
+            background-color: #10b981;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-download:hover {
+            background-color: #059669;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎬 Góc Giải Trí & Bộ Sưu Tập Của Tôi</h1>
+    <p class="subtitle">Trang web lưu trữ 219 ảnh, trailer phim và tài liệu cá nhân.</p>
+
+    <div class="container">
+
+        <!-- PHẦN 1: BỘ SƯU TẬP 219 ẢNH -->
+        <div class="card">
+            <h2>🖼️ Bộ Sưu Tập Ảnh (219 Ảnh)</h2>
+            <div class="gallery" id="imageGallery"></div>
+        </div>
+
+        <!-- PHẦN 2: VIDEO YOUTUBE NHÚNG -->
+        <div class="card">
+            <h2>🎥 Trailer Phim</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/mP0s5s0i20E" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <!-- PHẦN 3: TÀI LIỆU PDF -->
+        <div class="card">
+            <h2>📚 Tài Liệu Học Tập</h2>
+            <p style="color: #94a3b8; margin-bottom: 15px;">Tải file tài liệu PDF về máy tính.</p>
+            <a href="tailieu.pdf" download class="btn-download">📥 Tải Tài Liệu (PDF)</a>
+        </div>
+
+    </div>
+
+    <!-- KHUNG HIỂN THỊ ẢNH PHÓNG TO (MODAL) -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" onclick="dongAnhLon()">&times;</span>
+        <span class="nav-btn" id="prev-btn" onclick="prevPhoto()">&#10094;</span>
+        <span class="nav-btn" id="next-btn" onclick="nextPhoto()">&#10095;</span>
+
+        <div class="modal-content-wrapper" onclick="event.stopPropagation()">
+            <img id="imgModalContent">
+            <div class="photo-counter" id="photoCounter"></div>
+        </div>
+    </div>
+
+    <!-- SCRIPT XỬ LÝ -->
+    <script>
+        const totalPhotos = 219;
+        const photoArray = [];
+        let currentIndex = 0;
+        
+        const galleryContainer = document.getElementById("imageGallery");
+        
+        for (let i = 1; i <= totalPhotos; i++) {
+            const imgSrc = `assets/anh${i}.jpg`;
+            photoArray.push(imgSrc);
+            
+            const img = document.createElement("img");
+            img.src = imgSrc;
+            img.alt = `Ảnh ${i}`;
+            img.onclick = function() { moAnhLonAtIndex(i - 1); };
+            galleryContainer.appendChild(img);
+        }
+
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("imgModalContent");
+        const counter = document.getElementById("photoCounter");
+
+        function showPhoto(index) {
+            if (index < 0) index = totalPhotos - 1;
+            if (index >= totalPhotos) index = 0;
+
+            currentIndex = index;
+            modalImg.src = photoArray[currentIndex];
+            counter.innerText = `${currentIndex + 1} / ${totalPhotos}`;
+        }
+
+        function moAnhLonAtIndex(index) {
+            modal.style.display = "flex";
+            showPhoto(index);
+        }
+
+        function dongAnhLon() {
+            modal.style.display = "none";
+        }
+
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                dongAnhLon();
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape" && modal.style.display === "flex") {
+                dongAnhLon();
+            }
+        });
+
+        function nextPhoto() {
+            showPhoto(currentIndex + 1);
+        }
+
+        function prevPhoto() {
+            showPhoto(currentIndex - 1);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (modal.style.display === "flex") {
+                if (e.key === "ArrowRight") nextPhoto();
+                if (e.key === "ArrowLeft") prevPhoto();
+            }
+        });
+
+        let touchstartX = 0;
+        let touchendX = 0;
+        const minSwipeDistance = 50;
+
+        modal.addEventListener('touchstart', function(e) {
+            touchstartX = e.changedTouches[0].screenX;
+        }, false);
+
+        modal.addEventListener('touchend', function(e) {
+            touchendX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const swipeDistance = touchendX - touchstartX;
+            if (swipeDistance < -minSwipeDistance) {
+                nextPhoto();
+            } else if (swipeDistance > minSwipeDistance) {
+                prevPhoto();
+            }
+        }
+    </script>
+
+</body>
+</html>
